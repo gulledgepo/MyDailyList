@@ -1,61 +1,93 @@
-﻿using System;
+﻿using MDL.Models;
+using SQLite;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
 
+
+//This page has been replaced by HomePageView
+//This page is obsolete and should be deleted
+//Hanging on to it until later
+
+
+
+
+
+
+
 namespace MDL.Views
 {
 	public class HomePage : ContentPage
 	{
-		public HomePage ()
-		{
-            this.Title = "Select options";
+        //private Android.Views.View _cellCore;
+        //private ListView _listView;
+        //private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
-            StackLayout stackLayout = new StackLayout();
-            Button button = new Button();
-            button.Text = "Add Item";
-            button.Clicked += Button_Clicked;
-            stackLayout.Children.Add(button);
+        //Items _items = new Items();
 
-            button = new Button();
-            button.Text = "View List";
-            button.Clicked += Button_View_Clicked;
-            stackLayout.Children.Add(button);
-
-            button = new Button();
-            button.Text = "Edit Items";
-            button.Clicked += Button_Edit_Clicked;
-            stackLayout.Children.Add(button);
-
-            button = new Button();
-            button.Text = "Delete Items";
-            button.Clicked += Button_Delete_Clicked;
-            stackLayout.Children.Add(button);
-
-            Content = stackLayout;
-		}
-
-        private async void Button_Clicked(object sender, EventArgs e)
+        public HomePage()
         {
-            await Navigation.PushAsync(new AddItemPage());
-        }
-
-        private async void Button_View_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ViewListPage());
             
-        }
+                //this.Title = "My Daily List";
+                //var db = new SQLiteConnection(_dbPath);
+                ////var customCell = new DataTemplate(typeof(CustomCell));
 
-        private async void Button_Edit_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new EditListPage());
-        }
+                ////StackLayout stackLayout = new StackLayout();
 
-        private async void Button_Delete_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DeleteItemsPage());
+                ////Working Listview Population
+                ////_listView = new ListView();
+                ////_listView.ItemTemplate = customCell;
+                ////_listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
+                ////stackLayout.Children.Add(_listView);
+                //var dbItemList = db.Table<Items>().OrderBy(x => x.Name).ToList();
+                //var itemList = new ObservableCollection<Items>();
+
+                ////foreach (var item in dbItemList)
+                ////{
+                ////    itemList.Add(item);
+                ////};
+                //dbItemList.ForEach(item => itemList.Add(item));
+
+                //SwitchCell switchCell = new SwitchCell();
+                //_listView = new ListView();
+                //_listView.ItemsSource = itemList;
+                //_listView.ItemTemplate = new DataTemplate(typeof(CustomCell));
+
+               
+                //switchCell.OnChanged += SwitchCell_BindingContextChanged;
+                //_listView.ItemTemplate.SetBinding(SwitchCell.TextProperty, "Name");
+                //_listView.ItemTemplate.SetBinding(SwitchCell.OnProperty, "isComplete");
+                //_listView.ItemSelected += _listView_ItemSelected;
+                //_listView.PropertyChanged += _listView_PropertyChanged;
+                
+                ////_listView.ItemTemplate = new DataTemplate(() =>
+                ////{
+                ////    Label nameLabel = new Label();
+                ////    nameLabel.SetBinding(Label.TextProperty, "Name");
+                ////    Label descLabel = new Label();
+                ////    descLabel.SetBinding(Label.TextProperty, new binding("Description");
+                ////}
+                //////Experiments
+                ////ObservableCollection<> itemList = new ObservableCollection<>();
+                ////var maxPk = db.Table<Items>().OrderByDescending(c => c.Id).FirstOrDefault();
+                ////_listView.ItemsSource = itemList;
+                ////for (int i = 0; i < maxPk.Id + 1; i++)
+                ////{
+                ////    itemList.Add(db.Get<Items>(i));
+                ////}
+                ////stackLayout.Children.Add(_listView);
+
+
+                //Content = _listView;
+
+            
+
         }
     }
+
 }

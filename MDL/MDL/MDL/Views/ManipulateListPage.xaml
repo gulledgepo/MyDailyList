@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MDL.Views.ManipulateListPage">
+    <StackLayout>
+  <ListView x:Name="_listView"
+            ItemsSource="{Binding Items}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnSpacing="0" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="45"/>
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label x:Name="nameLabel"
+                                   x:FieldModifier="public"
+                                   Grid.Column="0"
+                                   Margin="5,0"
+                                   Text="{Binding Name}" />
+
+
+                            <Button x:Name="editBtn" 
+                                    Text="Edit"
+                                    FontSize="Micro"
+                                    Clicked="editBtn_Clicked"
+                                    Grid.Row="0"
+                                    Grid.Column="1" 
+                                    HorizontalOptions="EndAndExpand"   />
+
+                            <Button x:Name="deleteBtn" 
+                                    Text="Delete"
+                                    FontSize="Micro"
+                                    Clicked="deleteBtn_Clicked"
+                                    Grid.Row="0"
+                                    Grid.Column="2" 
+                                    HorizontalOptions="EndAndExpand"   />
+
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout>
+            <Button x:Name="addBtn" 
+                    Text="Add New Item"
+                    FontSize="Micro"
+                    Clicked="addBtn_Clicked"
+                    HorizontalOptions="FillAndExpand"   />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

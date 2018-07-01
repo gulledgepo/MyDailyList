@@ -11,8 +11,7 @@ namespace MDL
 		public App ()
 		{
 			InitializeComponent();
-
-			MainPage = new NavigationPage(new HomePage());
+            MainPage = new NavigationPage(new StartPage());
 		}
 
 		protected override void OnStart ()

@@ -8,6 +8,17 @@ using System.Text;
 
 using Xamarin.Forms;
 
+
+
+
+//This page is mostly obsolete
+//Replaced by HomePageView
+//should be deleted soon
+
+
+
+
+
 namespace MDL.Views
 {
 	public class ViewListPage : ContentPage

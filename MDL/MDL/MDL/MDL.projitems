@@ -24,6 +24,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\DeleteItemsPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\EditListPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HomePageView.xaml.cs">
+      <DependentUpon>HomePageView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ManipulateListPage.xaml.cs">
+      <DependentUpon>ManipulateListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StartPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ViewListPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManipulateListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Cells\" />
   </ItemGroup>
 </Project>

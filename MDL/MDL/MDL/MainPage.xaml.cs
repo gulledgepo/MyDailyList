@@ -11,6 +11,7 @@ namespace MDL
 	{
 		public MainPage()
 		{
+            
 			InitializeComponent();
 		}
 	}

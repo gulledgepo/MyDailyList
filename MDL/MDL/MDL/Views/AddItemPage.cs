@@ -1,4 +1,5 @@
-﻿using MDL.Models;
+﻿using MDL.Interfaces;
+using MDL.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace MDL.Views
          private Entry _descriptionEntry;
          private Button _saveButton;
 
-         string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
+         //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
          public AddItemPage ()
          {
@@ -48,10 +49,11 @@ namespace MDL.Views
 
          private async void _saveButton_Clicked(object sender, EventArgs e)
          {
-             var db = new SQLiteConnection(_dbPath);
-             db.CreateTable<Items>();
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
+            db.CreateTable<Items>();
 
-             var maxPk = db.Table<Items>().OrderByDescending(c => c.Id).FirstOrDefault();
+            var maxPk = db.Table<Items>().OrderByDescending(c => c.Id).FirstOrDefault();
 
             Items items = new Items()
             {

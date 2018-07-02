@@ -1,4 +1,5 @@
-﻿using MDL.Models;
+﻿using MDL.Interfaces;
+using MDL.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace MDL.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePageView : ContentPage
     {
-        private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
+
+        //private SQLiteConnection database;
+        //private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
         Items _items = new Items();
 
@@ -32,7 +35,8 @@ namespace MDL.Views
 
         private void PopulateList()
         {
-            var db = new SQLiteConnection(_dbPath);
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
 
             _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
             db.Close();
@@ -64,7 +68,8 @@ namespace MDL.Views
             var selectedItem = ((Switch)sender).BindingContext as Items;
 
             _items = selectedItem;
-            var db = new SQLiteConnection(_dbPath);
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             Items items = new Items()
             {
                 Id = Convert.ToInt32(_items.Id.ToString()),

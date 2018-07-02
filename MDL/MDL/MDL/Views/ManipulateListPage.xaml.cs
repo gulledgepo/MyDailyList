@@ -1,4 +1,5 @@
-﻿using MDL.Models;
+﻿using MDL.Interfaces;
+using MDL.Models;
 using SQLite;
 using System;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace MDL.Views
     public partial class ManipulateListPage : ContentPage
     {
 
-        private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
+        //private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
         Items _items = new Items();
 
@@ -36,8 +37,9 @@ namespace MDL.Views
 
         private void PopulateList()
         {
-            var db = new SQLiteConnection(_dbPath);
 
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
             db.Close();
         }

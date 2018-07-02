@@ -1,4 +1,5 @@
-﻿using MDL.Models;
+﻿using MDL.Interfaces;
+using MDL.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace MDL.Views
         private ListView _listView;
         private Button _button;
 
-        string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
+        //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
         Items _items = new Items();
 
@@ -25,8 +26,8 @@ namespace MDL.Views
 
             this.Title = "Delete Items";
 
-            var db = new SQLiteConnection(_dbPath);
-
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             StackLayout stackLayout = new StackLayout();
 
             _listView = new ListView();
@@ -45,7 +46,8 @@ namespace MDL.Views
 
         private async void _button_Clicked(object sender, EventArgs e)
         {
-            var db = new SQLiteConnection(_dbPath);
+            //var db = new SQLiteConnection(_dbPath);
+            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             db.Table<Items>().Delete(x => x.Id == _items.Id);
             await Navigation.PopAsync();
         }

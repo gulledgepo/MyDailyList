@@ -63,7 +63,7 @@ namespace MDL.Views
                 isComplete = false
              };
              db.Insert(items);
-             await DisplayAlert(null, items.Name + " added to your daily list!", "Ok.");
+            await DisplayAlert(null, items.Name + " added to your daily list!", "Ok.");
 
             await Navigation.PopAsync();
 

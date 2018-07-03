@@ -27,22 +27,20 @@
                                Grid.Column="0"
                                Margin="5,0"
                                Text="{Binding Name}" 
-                               >
+                               FontAttributes="Bold"                               >
                             <Label.Triggers>
                                 <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
-                                 TargetType="Label"
-                                 Value="False">
+                                     TargetType="Label"
+                                     Value="False">
                                     <Setter Property="BackgroundColor" Value="Blue" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
-                                 TargetType="Label"
-                                 Value="True">
+                                     TargetType="Label"
+                                     Value="True">
                                     <Setter Property="BackgroundColor" Value="Red" />
                                 </DataTrigger>
                             </Label.Triggers>
-
-                                
-                          </Label>
+                        </Label>
 
                         <Label
                           x:FieldModifier="public"
@@ -50,33 +48,30 @@
                           Grid.Row="1"
                           Grid.Column="0"
                           Margin="5,0"
+                          FontSize="Micro"
                           Text="{Binding Description}">
-
                             <Label.Triggers>
                                 <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
-                                 TargetType="Label"
-                                 Value="False">
+                                     TargetType="Label"
+                                     Value="False">
                                     <Setter Property="BackgroundColor" Value="Blue" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
-                                 TargetType="Label"
-                                 Value="True">
+                                     TargetType="Label"
+                                     Value="True">
                                     <Setter Property="BackgroundColor" Value="Red" />
                                 </DataTrigger>
                             </Label.Triggers>
-
                         </Label> 
 
                         <Switch x:FieldModifier="public" 
-                                x:Name="completeSwitch" 
-                                
+                                x:Name="completeSwitch"                                
                                 IsToggled="{Binding isComplete, Mode=TwoWay}"
                                 Toggled="Handle_OnToggle" 
                                 Grid.Row="0" 
                                 Grid.Column="1" 
                                 HorizontalOptions="EndAndExpand"   />
-                        
-
+                       
                     </Grid>
                 </ViewCell>
             </DataTemplate>

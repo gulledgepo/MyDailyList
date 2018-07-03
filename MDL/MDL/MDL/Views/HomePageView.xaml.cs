@@ -29,6 +29,11 @@ namespace MDL.Views
 
             this.Title = "My Daily List";
 
+            DateTime newDate = DateTime.Now;
+            
+
+
+
             PopulateList();
 
         }
@@ -38,7 +43,7 @@ namespace MDL.Views
             //var db = new SQLiteConnection(_dbPath);
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
 
-            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
+            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Id).ToList();
             db.Close();
         }
 
@@ -56,30 +61,34 @@ namespace MDL.Views
             _listView.SelectedItem = null;
         }
 
-        private void Handle_OnChanged(object sender, ToggledEventArgs args)
-        {
+        //private void Handle_OnChanged(object sender, ToggledEventArgs args)
+        //{
 
-        }
+        //}
 
 
         void Handle_OnToggle(object sender, ToggledEventArgs e)
         {
-            var getComplete = e.Value;
-            var selectedItem = ((Switch)sender).BindingContext as Items;
 
-            _items = selectedItem;
-            //var db = new SQLiteConnection(_dbPath);
-            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
-            Items items = new Items()
-            {
-                Id = Convert.ToInt32(_items.Id.ToString()),
-                Name = _items.Name,
-                Description = _items.Description,
-                isComplete = getComplete
-            };
-            
-            db.Update(items);
-            db.Close();
+                var getComplete = e.Value;
+                var selectedItem = ((Switch)sender).BindingContext as Items;
+                if (selectedItem != null)
+                {
+                    _items = selectedItem;
+                    //var db = new SQLiteConnection(_dbPath);
+                    var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
+
+                    Items items = new Items()
+                    {
+                        Id = Convert.ToInt32(_items.Id.ToString()),
+                        Name = _items.Name,
+                        Description = _items.Description,
+                        isComplete = getComplete
+
+                    };
+                    db.Update(items);
+                    db.Close();
+                }
         }
     }
 }

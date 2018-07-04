@@ -40,7 +40,7 @@ namespace MDL.Views
 
             //var db = new SQLiteConnection(_dbPath);
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
-            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
+            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Id).ToList();
             db.Close();
         }
 
@@ -58,19 +58,28 @@ namespace MDL.Views
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }
 
-        private void editBtn_Clicked(object sender, EventArgs e)
+        async private void editBtn_Clicked(object sender, EventArgs e)
         {
-
+            Items selectedItem = ((Button)sender).BindingContext as Items;
+            await Navigation.PushAsync(new EditListPage(selectedItem));
         }
 
-        private void deleteBtn_Clicked(object sender, EventArgs e)
+        async private void deleteBtn_Clicked(object sender, EventArgs e)
         {
+            var answer = await DisplayAlert("Delete Item", "Are you sure you want to delete this item from your list?", "Yes", "No");
+            if (answer)
+            {
+                Items selectedItem = ((Button)sender).BindingContext as Items;
+                var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
+                db.Table<Items>().Delete(x => x.Id == selectedItem.Id);
+                db.Close();
+                PopulateList();
+            }
+
 
         }
 

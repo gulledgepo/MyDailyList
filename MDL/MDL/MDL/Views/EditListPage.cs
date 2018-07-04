@@ -19,6 +19,7 @@ namespace MDL.Views
         private Entry _nameEntry;
         private Entry _descriptionEntry;
         private Button _button;
+        private bool getComplete;
 
         Items _items = new Items();
 
@@ -26,32 +27,32 @@ namespace MDL.Views
 
 
 
-        public EditListPage ()
+        public EditListPage (Items sentItem)
 		{
             this.Title = "Edit List";
-
+            NavigationPage.SetHasNavigationBar(this, false);
             //var db = new SQLiteConnection(_dbPath);
-            var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
+            //var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             StackLayout stackLayout = new StackLayout();
+            //_listView = new ListView();
+            //_listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
+            //_listView.ItemSelected += _listView_ItemSelected;
+            //stackLayout.Children.Add(_listView);
 
-            _listView = new ListView();
-            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Name).ToList();
-            _listView.ItemSelected += _listView_ItemSelected;
-            stackLayout.Children.Add(_listView);
-
+            getComplete = sentItem.isComplete;
             _idEntry = new Entry();
-            _idEntry.Placeholder = "";
+            _idEntry.Text = sentItem.Id.ToString();
             _idEntry.IsVisible = false;
             stackLayout.Children.Add(_idEntry);
 
             _nameEntry = new Entry();
             _nameEntry.Keyboard = Keyboard.Text;
-            _nameEntry.Placeholder = "Item Name";
+            _nameEntry.Text = sentItem.Name;
             stackLayout.Children.Add(_nameEntry);
 
             _descriptionEntry = new Entry();
             _descriptionEntry.Keyboard = Keyboard.Text;
-            _descriptionEntry.Placeholder = "Item Description";
+            _descriptionEntry.Text = sentItem.Description;
             stackLayout.Children.Add(_descriptionEntry);
 
             _button = new Button();
@@ -66,23 +67,26 @@ namespace MDL.Views
         private async void _button_Clicked(object sender, EventArgs e)
         {
             //var db = new SQLiteConnection(_dbPath);
+            
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             Items items = new Items()
             {
                 Id = Convert.ToInt32(_idEntry.Text),
                 Name = _nameEntry.Text,
-                Description = _descriptionEntry.Text
+                Description = _descriptionEntry.Text,
+                isComplete = getComplete
             };
             db.Update(items);
+            db.Close();
             await Navigation.PopAsync();
         }
 
-        private void _listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            _items = (Items)e.SelectedItem;
-            _idEntry.Text = _items.Id.ToString();
-            _nameEntry.Text = _items.Name;
-            _descriptionEntry.Text = _items.Description;
-        }
+        //private void _listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    _items = (Items)e.SelectedItem;
+        //    _idEntry.Text = _items.Id.ToString();
+        //    _nameEntry.Text = _items.Name;
+        //    _descriptionEntry.Text = _items.Description;
+        //}
     }
 }

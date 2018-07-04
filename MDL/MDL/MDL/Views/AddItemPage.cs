@@ -16,10 +16,11 @@ namespace MDL.Views
          private Entry _nameEntry;
          private Entry _descriptionEntry;
          private Button _saveButton;
+         DateTime testTime = DateTime.Now;
+        
+        //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
-         //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
-
-         public AddItemPage ()
+        public AddItemPage ()
          {
 
              NavigationPage.SetHasNavigationBar(this, false);

@@ -53,13 +53,13 @@ namespace MDL.Views
 
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item == null)
-                return;
+            //if (e.Item == null)
+            //    return;
 
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
+            ////Deselect Item
+            //((ListView)sender).SelectedItem = null;
         }
 
         async private void editBtn_Clicked(object sender, EventArgs e)

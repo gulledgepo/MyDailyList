@@ -26,14 +26,7 @@ namespace MDL.Views
         public HomePageView()
         {
             InitializeComponent();
-
             this.Title = "My Daily List";
-
-            DateTime newDate = DateTime.Now;
-            
-
-
-
             PopulateList();
 
         }

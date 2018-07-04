@@ -14,7 +14,6 @@ namespace MDL.Views
 	public class EditListPage : ContentPage
 	{
 
-        private ListView _listView;
         private Entry _idEntry;
         private Entry _nameEntry;
         private Entry _descriptionEntry;

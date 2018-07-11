@@ -14,11 +14,9 @@ namespace MDL.Views
 	public class EditListPage : ContentPage
 	{
 
-        private ListView _listView;
         private Entry _idEntry;
         private Entry _nameEntry;
         private Entry _descriptionEntry;
-        private Button _button;
         private bool getComplete;
 
         Items _items = new Items();
@@ -29,7 +27,7 @@ namespace MDL.Views
 
         public EditListPage (Items sentItem)
 		{
-            this.Title = "Edit List";
+            this.Title = "Edit Item";
             NavigationPage.SetHasNavigationBar(this, false);
             //var db = new SQLiteConnection(_dbPath);
             //var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
@@ -54,11 +52,6 @@ namespace MDL.Views
             _descriptionEntry.Keyboard = Keyboard.Text;
             _descriptionEntry.Text = sentItem.Description;
             stackLayout.Children.Add(_descriptionEntry);
-
-            _button = new Button();
-            _button.Text = "Update";
-            _button.Clicked += _button_Clicked;
-            stackLayout.Children.Add(_button);
 
             Content = stackLayout;
 

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="MDL.Views.AddItemPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout x:Name="addItemStack">
+                <Entry x:Name="entryID"
+                   IsVisible="false"></Entry>
+                <Entry x:Name="entryName"/>
+                <Entry x:Name="entryDescription"/>
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lblReminder"
+                       Text="Reminder?"
+                       FontSize="Large"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       VerticalOptions="Center"
+                       Margin="0,0,0,0"/>
+                    <Switch x:Name="switchReminder"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,0"
+                        Toggled="switchReminder_Toggled"/>
+                </Grid>
+                <TimePicker x:Name="selectedTime"
+                        PropertyChanged="selectedTime_PropertyChanged"
+                        Time="{Binding Items.reminderTime}">
+                    <TimePicker.Triggers>
+                        <DataTrigger Binding="{Binding Source={x:Reference switchReminder}, Path=IsToggled}"
+                                     TargetType="TimePicker"
+                                     Value="False">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Source={x:Reference switchReminder}, Path=IsToggled}"
+                                     TargetType="TimePicker"
+                                     Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </TimePicker.Triggers>
+                </TimePicker>
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnMonday"
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Mo"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Clicked="btnMonday_Clicked"
+                        IsVisible="false">
+                        <!--<Button.Triggers>
+                            <DataTrigger Binding="{Binding Source=getMonday}"
+                                         TargetType="Button"
+                                         Value="False">
+                                         <Setter Property="BackgroundColor" Value="Blue" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source=getMonday}"
+                                         TargetType="Button"
+                                         Value="True">
+                                        <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                        </Button.Triggers>-->
+                    </Button>
+                    <Button x:Name="btnTuesday" 
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Tu"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="-6,0,0,0"
+                        Clicked="btnTuesday_Clicked"
+                        IsVisible="false"/>
+                    <Button x:Name="btnWednesday" 
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="We"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="-6,0,0,0"
+                        Clicked="btnWednesday_Clicked"
+                        IsVisible="false"/>
+                    <Button x:Name="btnThursday" 
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Th"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Margin="-6,0,0,0"
+                        Clicked="btnThursday_Clicked"
+                        IsVisible="false"/>
+                    <Button x:Name="btnFriday"
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Fr"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Margin="-6,0,0,0"
+                        Clicked="btnFri_Clicked"
+                        IsVisible="false"/>
+                    <Button x:Name="btnSaturday" 
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Sa"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="5"
+                        Margin="-6,0,0,0"
+                        Clicked="btnSaturday_Clicked"
+                        IsVisible="false"/>
+                    <Button x:Name="btnSunday" 
+                        android:Button.UseDefaultPadding="true"
+                        android:Button.UseDefaultShadow="true"
+                        Text="Su"
+                        FontSize="Micro"
+                        Grid.Row="0"
+                        Grid.Column="6"
+                        Margin="-6,0,0,0"
+                        Clicked="btnSunday_Clicked"
+                        IsVisible="false"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"></StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button x:Name="btnAdd" 
+                    Text="Save"
+                    FontSize="Micro"
+                    Clicked="btnAdd_Clicked"
+                    HorizontalOptions="FillAndExpand" 
+                    />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

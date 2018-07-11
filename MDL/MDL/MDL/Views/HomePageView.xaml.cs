@@ -26,14 +26,7 @@ namespace MDL.Views
         public HomePageView()
         {
             InitializeComponent();
-
             this.Title = "My Daily List";
-
-            DateTime newDate = DateTime.Now;
-            
-
-
-
             PopulateList();
 
         }
@@ -43,7 +36,7 @@ namespace MDL.Views
             //var db = new SQLiteConnection(_dbPath);
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
 
-            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.Id).ToList();
+            _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.isComplete).OrderBy(c => c.Id).ToList();
             db.Close();
         }
 
@@ -56,9 +49,12 @@ namespace MDL.Views
 
         }
 
-        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        async private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            _listView.SelectedItem = null;
+            Items selectedItem = ((ListView)sender).SelectedItem as Items;
+            ((ListView)sender).SelectedItem = null;
+            await Navigation.PushAsync(new EditItemPage(selectedItem));
+
         }
 
         //private void Handle_OnChanged(object sender, ToggledEventArgs args)
@@ -78,17 +74,22 @@ namespace MDL.Views
                     //var db = new SQLiteConnection(_dbPath);
                     var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
 
-                    Items items = new Items()
-                    {
-                        Id = Convert.ToInt32(_items.Id.ToString()),
-                        Name = _items.Name,
-                        Description = _items.Description,
-                        isComplete = getComplete
-
+                Items items = new Items()
+                {
+                    Id = Convert.ToInt32(_items.Id.ToString()),
+                    Name = _items.Name,
+                    Description = _items.Description,
+                    isComplete = getComplete,
+                    mondayAlarm = _items.mondayAlarm
                     };
                     db.Update(items);
                     db.Close();
                 }
+        }
+
+        async private void addBtn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddItemPage());
         }
     }
 }

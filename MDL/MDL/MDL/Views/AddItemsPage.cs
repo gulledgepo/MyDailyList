@@ -11,15 +11,16 @@ using Xamarin.Forms;
 
 namespace MDL.Views
 {
-	public class AddItemPage : ContentPage
+	public class AddItemsPage : ContentPage
 	{
          private Entry _nameEntry;
          private Entry _descriptionEntry;
          private Button _saveButton;
+         DateTime testTime = DateTime.Now;
+        
+        //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
-         //string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
-
-         public AddItemPage ()
+        public AddItemsPage ()
          {
 
              NavigationPage.SetHasNavigationBar(this, false);
@@ -54,14 +55,23 @@ namespace MDL.Views
             db.CreateTable<Items>();
 
             var maxPk = db.Table<Items>().OrderByDescending(c => c.Id).FirstOrDefault();
-
+            TimeSpan addTime = new TimeSpan(10, 30, 0);
             Items items = new Items()
             {
                 Id = (maxPk == null ? 1 : maxPk.Id + 1),
                 Name = _nameEntry.Text,
                 Description = _descriptionEntry.Text,
-                isComplete = false
-             };
+                isComplete = false,
+                mondayAlarm = true,
+                tuesdayAlarm = false,
+                wednesdayAlarm = false,
+                thursdayAlarm = false,
+                fridayAlarm = false,
+                saturdayAlarm = false,
+                sundayAlarm = false,
+                reminderTime = addTime,
+                hasReminder = false
+            };
              db.Insert(items);
             await DisplayAlert(null, items.Name + " added to your daily list!", "Ok.");
 

@@ -65,7 +65,7 @@ namespace MDL.Views
         async private void editBtn_Clicked(object sender, EventArgs e)
         {
             Items selectedItem = ((Button)sender).BindingContext as Items;
-            await Navigation.PushAsync(new EditListPage(selectedItem));
+            await Navigation.PushAsync(new EditItemPage(selectedItem));
         }
 
         async private void deleteBtn_Clicked(object sender, EventArgs e)

@@ -16,7 +16,7 @@ namespace MDL.Views
 		{
 
             NavigationPage.SetHasNavigationBar(this, false);
-            var navigationPage = new NavigationPage(new ManipulateListPage());
+            var navigationPage = new NavigationPage(new HomePageView());
             navigationPage.Title = "Edit List";
 
             Children.Add(new HomePageView());

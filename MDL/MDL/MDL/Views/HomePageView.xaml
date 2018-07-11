@@ -2,112 +2,99 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MDL.Views.HomePageView">
+    <StackLayout>
     <ListView x:Name="_listView"
             ItemsSource="{Binding Items}"
             ItemTapped="ListView_ItemTapped"
-            RowHeight="75"
+            HasUnevenRows="True"
             BackgroundColor="Black"
             SeparatorVisibility="None"
             CachingStrategy="RecycleElement">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid ColumnSpacing="0" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+            <ListView.ItemTemplate>
 
-                        <Label x:Name="nameLabel"
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnSpacing="0" RowSpacing="0"                          >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="45" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="0">
+                                <Label x:Name="nameLabel"
                                x:FieldModifier="public"
-                               Grid.Column="0"
                                Margin="5,0"
-                               Text="{Binding Name}" 
-                               FontAttributes="Bold"                               >
-                            <Label.Triggers>
-                                <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
+                               Text="{Binding Name}"
+                               FontSize="Large"
+                               FontAttributes="Bold"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="False">
-                                    <Setter Property="BackgroundColor" Value="Blue" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
+                                            <Setter Property="BackgroundColor" Value="Blue" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="True">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
+                                            <Setter Property="BackgroundColor" Value="Red" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
 
-                        <Label
+                            <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0">
+                                <Label
                           x:FieldModifier="public"
                           x:Name="descLabel"
-                          Grid.Row="1"
-                          Grid.Column="0"
                           Margin="5,0"
-                          FontSize="Micro"
+                          FontSize="Large"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
                           Text="{Binding Description}">
-                            <Label.Triggers>
-                                <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="False">
-                                    <Setter Property="BackgroundColor" Value="Blue" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
+                                            <Setter Property="BackgroundColor" Value="Blue" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="True">
-                                    <Setter Property="BackgroundColor" Value="Red" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label> 
+                                            <Setter Property="BackgroundColor" Value="Red" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
 
-                        <Switch x:FieldModifier="public" 
+                            <Switch x:FieldModifier="public" 
                                 x:Name="completeSwitch"                                
                                 IsToggled="{Binding isComplete, Mode=TwoWay}"
                                 Toggled="Handle_OnToggle" 
                                 Grid.Row="0" 
                                 Grid.Column="1" 
                                 HorizontalOptions="EndAndExpand"   />
-                       
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
 
-       <!-- <THIS IS WHAT WORKSBuilt in Cells 
-    <ListView.ItemTemplate>
-            <DataTemplate>
-                <SwitchCell Text="{Binding Text}"  On="false" OnChanged="Handle_OnChanged"></SwitchCell>
-            </DataTemplate>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
             </ListView.ItemTemplate>
-        -->
-            <!--Custom View Cells-->
-    <!--
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-      
-                              <Switch
-                          Grid.RowSpan="2"
-                          Grid.Column="1"
-                          Changed="Handle_OnChanged"
-                          HorizontalOptions="Center"
-                          IsVisible="{Binding IsLast, Converter={local:NotBooleanConverter}}"
-                          VerticalOptions="Fill"
-                          WidthRequest="3" />   
-      
-    -->
-  </ListView>
+        </ListView>
+        <StackLayout>
+            <Button x:Name="addBtn" 
+                    Text="Add New Item"
+                    FontSize="Micro"
+                    Clicked="addBtn_Clicked"
+                    HorizontalOptions="FillAndExpand"   />
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

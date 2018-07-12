@@ -32,8 +32,6 @@ namespace MDL.Views
             this.Title = "Add Item";
             InitializeComponent ();
 
-            entryName.Placeholder = "Item Name";
-            entryDescription.Placeholder = "Item Description";
             getTime = selectedTime.Time;
 
         }

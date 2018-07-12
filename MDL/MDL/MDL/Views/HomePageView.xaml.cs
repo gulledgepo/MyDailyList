@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MDL;
 
 namespace MDL.Views
 {
@@ -18,22 +19,29 @@ namespace MDL.Views
     public partial class HomePageView : ContentPage
     {
 
-        //private SQLiteConnection database;
-        //private string _dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myDB.db3");
 
         Items _items = new Items();
+        bool leftPage = false;
 
         public HomePageView()
         {
             InitializeComponent();
-            this.Title = "My Daily List";
+            this.Title = "My Daily List";       
+
             PopulateList();
+
+
+
 
         }
 
-        private void PopulateList()
+        private void HandleSingleTap()
         {
-            //var db = new SQLiteConnection(_dbPath);
+
+        }
+
+        public void PopulateList()
+        {
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
 
             _listView.ItemsSource = db.Table<Items>().OrderBy(x => x.isComplete).OrderBy(c => c.Id).ToList();
@@ -43,9 +51,8 @@ namespace MDL.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            HomePageView viewModel = new HomePageView();
             PopulateList();
+            leftPage = false;
 
         }
 
@@ -53,7 +60,17 @@ namespace MDL.Views
         {
             Items selectedItem = ((ListView)sender).SelectedItem as Items;
             ((ListView)sender).SelectedItem = null;
+            if (leftPage)
+            {
+                return;
+            }
+                
+            leftPage = true;
+
             await Navigation.PushAsync(new EditItemPage(selectedItem));
+
+            leftPage = false;
+            
 
         }
 
@@ -71,25 +88,31 @@ namespace MDL.Views
                 if (selectedItem != null)
                 {
                     _items = selectedItem;
-                    //var db = new SQLiteConnection(_dbPath);
                     var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
-
-                Items items = new Items()
-                {
-                    Id = Convert.ToInt32(_items.Id.ToString()),
-                    Name = _items.Name,
-                    Description = _items.Description,
-                    isComplete = getComplete,
-                    mondayAlarm = _items.mondayAlarm
+                    Items items = new Items()
+                    {
+                        Id = Convert.ToInt32(_items.Id.ToString()),
+                        Name = _items.Name,
+                        Description = _items.Description,
+                        isComplete = getComplete,
+                        mondayAlarm = _items.mondayAlarm
                     };
-                    db.Update(items);
-                    db.Close();
+                        db.Update(items);
+                        db.Close();
                 }
         }
 
         async private void addBtn_Clicked(object sender, EventArgs e)
         {
+            if (leftPage)
+            {
+                return;
+            }
+
+            leftPage = true;
             await Navigation.PushAsync(new AddItemPage());
+
+            leftPage = false;
         }
     }
 }

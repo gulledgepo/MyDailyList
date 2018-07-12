@@ -8,6 +8,8 @@ using System.Text;
 using Xamarin.Forms;
 using SQLite;
 
+
+//Should be deleted
 namespace MDL.Views
 {
 	public class StartPage : TabbedPage

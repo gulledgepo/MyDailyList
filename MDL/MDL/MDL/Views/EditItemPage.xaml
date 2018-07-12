@@ -8,8 +8,14 @@
             <StackLayout x:Name="editItemStack">
                 <Entry x:Name="entryID"
                    IsVisible="false"></Entry>
-                <Entry x:Name="entryName"/>
-                <Entry x:Name="entryDescription"/>
+                <Label x:Name="lblName"
+                       Text="Item Name:"
+                       Margin="5,0,0,0"/>
+                <Editor x:Name="entryName"/>
+                <Label x:Name="lblDescription"
+                       Text="Item Description:"
+                       Margin="5,0,0,0" />
+                <Editor x:Name="entryDescription"                        />
                 <Grid ColumnSpacing="0" RowSpacing="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -24,11 +30,11 @@
                        Grid.Row="0"
                        Grid.Column="0"
                        VerticalOptions="Center"
-                       Margin="0,0,0,0"/>
+                       Margin="5,0,0,0"/>
                     <Switch x:Name="switchReminder"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Margin="5,0"
+                        Margin="0,0"
                         Toggled="switchReminder_Toggled"/>
                 </Grid>
                 <TimePicker x:Name="selectedTime"

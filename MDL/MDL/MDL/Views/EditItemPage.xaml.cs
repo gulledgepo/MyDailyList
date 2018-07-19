@@ -33,6 +33,7 @@ namespace MDL.Views
             this.Title = "Edit Item";
             InitializeComponent();
 
+            //Loads all the sentItem into the corresponding xaml forms
             entryID.Text = sentItem.Id.ToString();
             entryName.Text = sentItem.Name;
             entryDescription.Text = sentItem.Description;
@@ -48,6 +49,7 @@ namespace MDL.Views
             selectedTime.Time = sentItem.reminderTime;
             getReminder = sentItem.hasReminder;
             switchReminder.IsToggled = getReminder;
+            //Call handle buttons to change the color of them based on the loaded values of the booleans for each day to simulate them being enabled
             HandleButtons();
         }
 
@@ -77,6 +79,7 @@ namespace MDL.Views
             await Navigation.PopAsync();
         }
 
+        //Long function to change the color of the buttons to simulate being enabled and disabled
         private void btnMonday_Clicked(object sender, EventArgs e)
         {
             if (getMonday)
@@ -178,13 +181,13 @@ namespace MDL.Views
 
         private void selectedTime_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            
+            //Set the getTime variable to the timepickers current time
             if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
             {
                 getTime = selectedTime.Time;
             }
         }
-
+        //If there is no reminder required the controls for the reminder are hidden, if the switch turns on they are shown
         private void switchReminder_Toggled(object sender, ToggledEventArgs e)
         {
             getReminder = e.Value;
@@ -271,5 +274,9 @@ namespace MDL.Views
             }
         }
 
+        async private void btnCancel_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
     }
 }

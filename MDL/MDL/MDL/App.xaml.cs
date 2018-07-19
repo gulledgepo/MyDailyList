@@ -19,14 +19,17 @@ namespace MDL
 		public App ()
 		{
 			InitializeComponent();
-            checkItems();
-            checkDate();
+            CheckItems();
+            CheckDate();
+            //Start our view of HomePageView
             MainPage = new NavigationPage(new HomePageView());
 		}
 
 		protected override void OnStart ()
 		{
-            checkDate();
+            //When the app starts, check to see if the date has changed and if so reset the items in list
+            CheckDate();
+            //Alarms are redone the app is start
             var alarmsHandler = new AlarmsHandler();
             alarmsHandler.HandleAlarm();
             // Handle when your app starts
@@ -40,15 +43,21 @@ namespace MDL
 		protected override void OnResume ()
 		{
             // Handle when your app resumes
-            checkDate();
+            //When the app resumes, check to see if the date has changed and if so reset the items in list
+            CheckDate();
+            //Alarms are redone the app is resumed
             var alarmsHandler = new AlarmsHandler();
             alarmsHandler.HandleAlarm();
 		}
 
-        private void checkItems()
+        private void CheckItems()
         {
+            //CheckItems()
+            //Checks to see if it can find the first item in the Items table. If it can, then it means
+            //that the table exist. If it can't, then the table doesn't exist and we create it with all the necessary fields.
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
-            //db.DropTable<Items>();
+            //This is used for testing to easily reset table
+            db.DropTable<Items>();
             Items testItem = new Items();
             try
             {
@@ -64,7 +73,7 @@ namespace MDL
                 {
                     Id = (maxPk == null ? 1 : maxPk.Id + 1),
                     Name = "Tap to edit item.",
-                    Description = "Swipe to delete.",
+                    Description = "Hold then release to delete. \n\nMark items complete on the right.\n\nCompleted items will be reset each new day. \n\nItems can be given timed reminders upon creation or when being edited.",
                     isComplete = false,
                     mondayAlarm = true,
                     tuesdayAlarm = false,
@@ -74,15 +83,20 @@ namespace MDL
                     saturdayAlarm = false,
                     sundayAlarm = false,
                     reminderTime = addTime,
-                    hasReminder = true
+                    hasReminder = false
                     
                 };
                 db.Insert(items);
             }
         }
 
-        private void checkDate()
+        private void CheckDate()
         {
+            //checkDate()
+            //Checks to see if the date has changed. A table for CurrentDate holds the DateTime from the last time the app was opened
+            //It is then compared to the current date of the app being opened. If it has changed, it resets all isComplete in the 
+            //Items table to false. Also sets the currentDate to the newDate
+
             DateTime newDay = DateTime.Now;
             CurrentDate currentDay = new CurrentDate();
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();

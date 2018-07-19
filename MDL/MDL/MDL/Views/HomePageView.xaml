@@ -5,17 +5,16 @@
              x:Class="MDL.Views.HomePageView">
     <StackLayout>
         <ListView x:Name="_listView"
-            ItemsSource="{Binding Items}"
-            ItemTapped="ListView_ItemTapped"
+            ItemsSource="{Binding Items}"           
             HasUnevenRows="True"
-            BackgroundColor="Black"
-            SeparatorVisibility="None"
+            
+            ItemTapped="ListView_ItemTapped"
             CachingStrategy="RecycleElement">
             <ListView.ItemTemplate>
 
                 <DataTemplate>
                     <ViewCell>
-                        <Grid ColumnSpacing="0" RowSpacing="0" BackgroundColor="Black"                          >
+                        <Grid ColumnSpacing="0" RowSpacing="0"                          >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="55" />
@@ -28,26 +27,25 @@
                             <StackLayout
                         Grid.Row="0"
                         Grid.Column="0">
-                                
-                               <local:FancyLabel x:Name="nameLabel"
+
+                               <local:FancyLabel x:Name="nameLabel"     
                                x:FieldModifier="public"
                                Margin="5,0"             
                                Text="{Binding Name}"
                                FontSize="Large"
-                               FontAttributes="Bold"
-                                                 
+                               FontAttributes="Bold"                                                 
                                HorizontalOptions="FillAndExpand"
                                VerticalOptions="FillAndExpand">
                                     <Label.Triggers>
                                         <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="False">
-                                            <Setter Property="BackgroundColor" Value="Blue" />
+                                            <Setter Property="FontFamily" Value="BPtypewrite.otf#BPtypewrite" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="True">
-                                            <Setter Property="BackgroundColor" Value="Red" />
+                                            <Setter Property="FontFamily" Value="BPtypewriteStrikethrough.ttf#BPtypewriteStrikethrough" />
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </local:FancyLabel>
@@ -56,11 +54,11 @@
                             <StackLayout
                         Grid.Row="1"
                         Grid.Column="0">
-                                <Label
+                          <local:FancyLabel
                           x:FieldModifier="public"
                           x:Name="descLabel"
                           Margin="5,0"
-                          FontSize="Large"
+                          FontSize="15"
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand"
                           Text="{Binding Description}">
@@ -68,15 +66,15 @@
                                         <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="False">
-                                            <Setter Property="BackgroundColor" Value="Blue" />
+                                            <Setter Property="FontFamily" Value="BPtypewrite.otf#BPtypewrite" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Source={x:Reference completeSwitch}, Path=IsToggled}"
                                      TargetType="Label"
                                      Value="True">
-                                            <Setter Property="BackgroundColor" Value="Red" />
+                                            <Setter Property="FontFamily" Value="BPtypewriteStrikethrough.ttf#BPtypewriteStrikethrough" />
                                         </DataTrigger>
                                     </Label.Triggers>
-                                </Label>
+                                </local:FancyLabel>
                             </StackLayout>
 
                             <Switch x:FieldModifier="public" 
@@ -85,8 +83,8 @@
                                 Toggled="Handle_OnToggle" 
                                 Grid.Row="0" 
                                 Grid.Column="1" 
-                                Scale="1.5"
-                                Margin="0,25,0,0"
+                                Scale="1.2"
+                                Margin="-0,25,0,0"
                                 HorizontalOptions="EndAndExpand"
                                 VerticalOptions="Center"/>
 
@@ -97,18 +95,9 @@
         </ListView>
 
         <StackLayout>
-            <!--<local:FancyLabel x:Name="fancylblTest"
-                              Text="Dad"
-                              >
-            </local:FancyLabel>
-            <local:FancyLabel x:Name="fancylblMom"
-                              Text="Mom"
-                              >
-            </local:FancyLabel>-->
-
             <Button x:Name="addBtn" 
                     Text="Add New Item"
-                    FontSize="Micro"
+                    FontSize="Medium"
                     Clicked="addBtn_Clicked"
                     HorizontalOptions="FillAndExpand"   />
         </StackLayout>

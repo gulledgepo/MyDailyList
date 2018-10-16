@@ -57,7 +57,7 @@ namespace MDL
             //that the table exist. If it can't, then the table doesn't exist and we create it with all the necessary fields.
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             //This is used for testing to easily reset table
-            db.DropTable<Items>();
+            //db.DropTable<Items>();
             Items testItem = new Items();
             try
             {

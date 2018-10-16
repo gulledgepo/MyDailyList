@@ -24,7 +24,15 @@ namespace MDL.Controls
             //7 different Ifs for the day checking if the stored corresponding boolean is true
             //If it is true, it gets the current time and finds the difference from the stored time for the reminder
             //If that isn't negative it means the alarm needs to be set, creates the notification with the name and description of the item
-            CrossNotifications.Current.CancelAll();
+            try
+            {
+                CrossNotifications.Current.CancelAll();
+            }
+            catch
+            {
+                MessagingCenter.Send<AlarmsHandler>(this, "DeleteAlarm");
+            }
+
             DateTime currentDayOfWeek = DateTime.Now;
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             var dbItemList = db.Table<Items>().OrderBy(x => x.Id).ToList();
@@ -50,14 +58,14 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,                                            
-                                            Sound = "default",
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //    //Vibrate = true,                                            
+                                        //    //Sound = "default",
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                             }
                                 }
                             }
@@ -76,13 +84,13 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //    //Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                                     }
                                 }
                             }
@@ -101,14 +109,22 @@ namespace MDL.Controls
                                 string differenceAsString = difference.ToString().ToString();
                                 if (!differenceAsString.Contains("-"))
                                 {
-                                    var id = CrossNotifications.Current.Send(new Notification
-                                    {
-                                        Title = item.Name,
-                                        Message = item.Description,
-                                        Vibrate = true,
-                                        When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                    });
-                                }
+                                //try
+                                //{
+                                //    var id = CrossNotifications.Current.Send(new Notification
+                                //    {
+                                //        Title = item.Name,
+                                //        Message = item.Description,
+                                //        //Vibrate = true,
+                                //        When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                //    });
+                                //}
+
+                                //catch
+                                //{
+                                //    MessagingCenter.Send<AlarmsHandler, string>(this, "AlarmError", differenceAsString);
+                                //}
+                            }
                             }
                         }
                     }
@@ -126,13 +142,13 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                                     }
                                 }
                             }
@@ -151,13 +167,13 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                                     }
                                 }
                             }
@@ -176,13 +192,13 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                                     }
                                 }
                             }
@@ -201,13 +217,13 @@ namespace MDL.Controls
                                     string differenceAsString = difference.ToString().ToString();
                                     if (!differenceAsString.Contains("-"))
                                     {
-                                        var id = CrossNotifications.Current.Send(new Notification
-                                        {
-                                            Title = item.Name,
-                                            Message = item.Description,
-                                            Vibrate = true,
-                                            When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                                        });
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //  //  Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
                                     }
                                 }
                             }

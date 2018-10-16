@@ -42,6 +42,14 @@ namespace MDL.Views
                 EditItem(args);
             });
 
+            MessagingCenter.Subscribe<AlarmsHandler, string>(this, "AlarmError", (sender, args) => {
+                DisplayAlert("Error setting Alarms", args.ToString(), "Ok");
+            });
+
+            MessagingCenter.Subscribe<AlarmsHandler>(this, "DeleteAlarm", (sender) => {
+                DisplayAlert("Error deleting the Alarms", "There was an error", "Ok");
+            });
+
         }
 
         async public void DeleteItem(Items item)

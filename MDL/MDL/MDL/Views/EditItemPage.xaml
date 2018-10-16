@@ -11,11 +11,13 @@
                 <Label x:Name="lblName"
                        Text="Item Name:"
                        Margin="5,0,0,0"/>
-                <Editor x:Name="entryName"/>
+                <Editor x:Name="entryName"
+                        Keyboard="Text"/>
                 <Label x:Name="lblDescription"
                        Text="Item Description:"
                        Margin="5,0,0,0" />
-                <Editor x:Name="entryDescription"                        />
+                <Editor x:Name="entryDescription"
+                        Keyboard="Text"/>
                 <Grid ColumnSpacing="0" RowSpacing="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -152,13 +154,37 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"></StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="End">
-                <Button x:Name="btnUpdate" 
-                    Text="Update"
-                    FontSize="Micro"
-                    Clicked="btnUpdate_Clicked"
-                    HorizontalOptions="FillAndExpand" 
-                    />
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                        <Button x:Name="btnCancel" 
+                        Text="Cancel"
+                        FontSize="Medium"
+                        Clicked="btnCancel_Clicked"
+                        HorizontalOptions="End"
+                                Margin="-6,0,0,0"
+                        Grid.Row="0"
+                        Grid.Column="2"/>
+                    <Button x:Name="btnUpdate" 
+                        Text="Update"
+                        FontSize="Medium"
+                        Clicked="btnUpdate_Clicked"
+                        HorizontalOptions="End"
+                            Margin="-6,0,0,0"
+                        Grid.Row="0"
+                        Grid.Column="3"/>
+                </Grid>
             </StackLayout>
+        
+       
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

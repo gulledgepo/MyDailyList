@@ -26,7 +26,7 @@ namespace MDL.Droid
         private readonly FancyGestureListener _listener;
         private readonly GestureDetector _detector;
 
-        public FancyAndroidLabelRenderer()
+        public FancyAndroidLabelRenderer(Context context) : base(context)
         {
             _listener = new FancyGestureListener();
             _detector = new GestureDetector(_listener);

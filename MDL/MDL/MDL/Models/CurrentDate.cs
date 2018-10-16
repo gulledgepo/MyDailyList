@@ -7,6 +7,7 @@ namespace MDL.Models
 {
     public class CurrentDate
     {
+        //Stores the current datetime
         [PrimaryKey]
         public int Id { get; set; }
         public DateTime currentDate { get; set; }

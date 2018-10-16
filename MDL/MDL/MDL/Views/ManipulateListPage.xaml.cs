@@ -73,10 +73,7 @@ namespace MDL.Views
             var answer = await DisplayAlert("Delete Item", "Are you sure you want to delete this item from your list?", "Yes", "No");
             if (answer)
             {
-                Items selectedItem = ((Button)sender).BindingContext as Items;
-                var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
-                db.Table<Items>().Delete(x => x.Id == selectedItem.Id);
-                db.Close();
+
                 PopulateList();
             }
 

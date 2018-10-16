@@ -4,18 +4,20 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Class="MDL.Views.AddItemPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout  Orientation="Vertical">
             <StackLayout x:Name="addItemStack">
                 <Entry x:Name="entryID"
                    IsVisible="false"></Entry>
                 <Label x:Name="lblName"
                        Text="Item Name:"
                        Margin="5,0,0,0"/>
-                <Editor x:Name="entryName"/>
+                <Editor x:Name="entryName"
+                        Keyboard="Text"/>
                 <Label x:Name="lblDescription"
                        Text="Item Description:"
                        Margin="5,0,0,0" />
-                <Entry x:Name="entryDescription"/>
+                <Editor x:Name="entryDescription"
+                        Keyboard="Text"/>
                 <Grid ColumnSpacing="0" RowSpacing="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -152,12 +154,33 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"></StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="End">
-                <Button x:Name="btnAdd" 
-                    Text="Save"
-                    FontSize="Micro"
-                    Clicked="btnAdd_Clicked"
-                    HorizontalOptions="FillAndExpand" 
-                    />
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnCancel" 
+                        Text="Cancel"
+                        FontSize="Medium"
+                        Clicked="btnCancel_Clicked"
+                        HorizontalOptions="End"
+                                Margin="-6,0,0,0"
+                        Grid.Row="0"
+                        Grid.Column="2"/>
+                    <Button x:Name="btnAdd" 
+                        Text="Add"
+                        FontSize="Medium"
+                        Clicked="btnAdd_Clicked"
+                        HorizontalOptions="End"
+                            Margin="-6,0,0,0"
+                        Grid.Row="0"
+                        Grid.Column="3"/>
+                </Grid>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

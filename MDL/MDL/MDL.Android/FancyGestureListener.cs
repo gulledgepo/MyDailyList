@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Timers;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -50,7 +50,7 @@ namespace MDL.Droid
             Console.WriteLine("OnSingleTapUp");
             if (myLabel != null)
             {
-                myLabel.HandleSingleTap(this, new System.EventArgs());
+                myLabel.HandleSingleTapUp(this, new System.EventArgs());
             }
             return base.OnSingleTapUp(e);
 
@@ -66,14 +66,18 @@ namespace MDL.Droid
         public override bool OnFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
         {
             Console.WriteLine("OnFling");
+            if (myLabel != null)
+            {
+                myLabel.HandleOnFling(this, new System.EventArgs());
+            }
             return base.OnFling(e1, e2, velocityX, velocityY);
         }
 
-        public override bool OnScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
-        {
-            Console.WriteLine("OnScroll");
-            return base.OnScroll(e1, e2, distanceX, distanceY);
-        }
+        //public override bool OnScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+        //{
+        //    Console.WriteLine("OnScroll");
+        //    return base.OnScroll(e1, e2, distanceX, distanceY);
+        //}
 
         public override void OnShowPress(MotionEvent e)
         {
@@ -84,6 +88,10 @@ namespace MDL.Droid
         public override bool OnSingleTapConfirmed(MotionEvent e)
         {
             Console.WriteLine("OnSingleTapConfirmed");
+            //if (myLabel != null)
+            //{
+            //    myLabel.HandleSingleTap(this, new System.EventArgs());
+            //}
             return base.OnSingleTapConfirmed(e);
 
         }

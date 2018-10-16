@@ -17,7 +17,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AlarmsHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\DeleteItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FancyLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDatabaseConnection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -29,7 +28,6 @@
       <DependentUpon>AddItemPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\BlankPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\EditItemPage.xaml.cs">
       <DependentUpon>EditItemPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -38,18 +36,9 @@
       <DependentUpon>HomePageView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ManipulateListPage.xaml.cs">
-      <DependentUpon>ManipulateListPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\StartPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManipulateListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

@@ -18,7 +18,21 @@ namespace MDL.Controls
 
         public void HandleAlarm()
         {
-            CrossNotifications.Current.CancelAll();
+            //HandleAlarm()
+            //Cancels all pending alarms so that they can be rebuilt.
+            //Creates a list of all items in the Items table. Gets the current day in the DayOfWeek
+            //7 different Ifs for the day checking if the stored corresponding boolean is true
+            //If it is true, it gets the current time and finds the difference from the stored time for the reminder
+            //If that isn't negative it means the alarm needs to be set, creates the notification with the name and description of the item
+            try
+            {
+                CrossNotifications.Current.CancelAll();
+            }
+            catch
+            {
+                MessagingCenter.Send<AlarmsHandler>(this, "DeleteAlarm");
+            }
+
             DateTime currentDayOfWeek = DateTime.Now;
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             var dbItemList = db.Table<Items>().OrderBy(x => x.Id).ToList();
@@ -27,160 +41,195 @@ namespace MDL.Controls
             //    Title = "Samples",
             //    Message = "Starting Sample Schedule Notifications"
             //});
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Monday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.mondayAlarm == true)
+
+            //An item has to not be complete to get a reminder, if it is complete they already did it today regardless of whether a
+            //reminder is required. additionally, the hasReminder has to be true, for convenience the reminder day and time is stored even when 
+            //hasreminder is off, so this must be checked
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Monday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.mondayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //    //Vibrate = true,                                            
+                                        //    //Sound = "default",
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                            }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Tuesday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.tuesdayAlarm == true)
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Tuesday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.tuesdayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //    //Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Wednesday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.wednesdayAlarm == true)
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Wednesday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                    foreach (var item in dbItemList)
+                    {
+                        if (item.isComplete == false && item.hasReminder == true)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.wednesdayAlarm == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                TimeSpan difference = item.reminderTime - currentTime;
+                                string differenceAsString = difference.ToString().ToString();
+                                if (!differenceAsString.Contains("-"))
+                                {
+                                //try
+                                //{
+                                //    var id = CrossNotifications.Current.Send(new Notification
+                                //    {
+                                //        Title = item.Name,
+                                //        Message = item.Description,
+                                //        //Vibrate = true,
+                                //        When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                //    });
+                                //}
+
+                                //catch
+                                //{
+                                //    MessagingCenter.Send<AlarmsHandler, string>(this, "AlarmError", differenceAsString);
+                                //}
+                            }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Thursday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.thursdayAlarm == true)
+                    }
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Thursday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.thursdayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Friday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.fridayAlarm == true)
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Friday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.fridayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Saturday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.saturdayAlarm == true)
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Saturday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.saturdayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //   // Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            if (currentDayOfWeek.DayOfWeek == DayOfWeek.Sunday)
-            {
-                foreach (var item in dbItemList)
-                {
-                    if (item.sundayAlarm == true)
+                    if (currentDayOfWeek.DayOfWeek == DayOfWeek.Sunday)
                     {
-                        TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                        TimeSpan difference = item.reminderTime - currentTime;
-                        string differenceAsString = difference.ToString().ToString();
-                        if (!differenceAsString.Contains("-"))
+                        foreach (var item in dbItemList)
                         {
-                            var id = CrossNotifications.Current.Send(new Notification
+                            if (item.isComplete == false && item.hasReminder == true)
                             {
-                                Title = item.Name,
-                                Message = item.Description,
-                                Vibrate = true,
-                                When = TimeSpan.FromSeconds(difference.TotalSeconds)
-                            });
+                                if (item.sundayAlarm == true)
+                                {
+                                    TimeSpan currentTime = DateTime.Now.TimeOfDay;
+                                    TimeSpan difference = item.reminderTime - currentTime;
+                                    string differenceAsString = difference.ToString().ToString();
+                                    if (!differenceAsString.Contains("-"))
+                                    {
+                                        //var id = CrossNotifications.Current.Send(new Notification
+                                        //{
+                                        //    Title = item.Name,
+                                        //    Message = item.Description,
+                                        //  //  Vibrate = true,
+                                        //    When = TimeSpan.FromSeconds(difference.TotalSeconds)
+                                        //});
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
+                         
             db.Close();
         }
     }

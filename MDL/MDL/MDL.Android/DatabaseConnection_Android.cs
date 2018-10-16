@@ -18,6 +18,7 @@ namespace MDL.Droid
 {
     public class DatabaseConnection_Android : Interfaces.IDatabaseConnection
     {
+        //Used to get the storage for android
         public SQLiteConnection DbConnection()
         {
             var dbName = "myDB.db3";

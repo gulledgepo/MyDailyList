@@ -15,8 +15,7 @@ namespace MDL.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddItemPage : ContentPage
 	{
-
-        //Items _items = new Items();
+        //All day bools are set to false assuming no reminder is necessary
         private bool getMonday = false;
         private bool getTuesday = false;
         private bool getWednesday = false;
@@ -32,43 +31,44 @@ namespace MDL.Views
             this.Title = "Add Item";
             InitializeComponent ();
 
+            //selectedTime is the time picker
             getTime = selectedTime.Time;
 
         }
 
         async private void btnAdd_Clicked(object sender, EventArgs e)
         {
-            //var db = new SQLiteConnection(_dbPath);
             var db = DependencyService.Get<IDatabaseConnection>().DbConnection();
             db.CreateTable<Items>();
 
             var maxPk = db.Table<Items>().OrderByDescending(c => c.Id).FirstOrDefault();
-            TimeSpan addTime = new TimeSpan(10, 30, 0);
             Items items = new Items()
             {
                 Id = (maxPk == null ? 1 : maxPk.Id + 1),
                 Name = entryName.Text,
                 Description = entryDescription.Text,
                 isComplete = false,
-                mondayAlarm = true,
-                tuesdayAlarm = false,
-                wednesdayAlarm = false,
-                thursdayAlarm = false,
-                fridayAlarm = false,
-                saturdayAlarm = false,
-                sundayAlarm = false,
+                mondayAlarm = getMonday,
+                tuesdayAlarm = getTuesday,
+                wednesdayAlarm = getWednesday,
+                thursdayAlarm = getThursday,
+                fridayAlarm = getFriday,
+                saturdayAlarm = getSaturday,
+                sundayAlarm = getSunday,
                 reminderTime = getTime,
-                hasReminder = false
+                hasReminder = getReminder
             };
             db.Insert(items);
             await DisplayAlert(null, items.Name + " added to your daily list!", "Ok.");
-
+            //After item is added return to HomePageView and set the alarms
             await Navigation.PopAsync();
             var alarmsHandler = new AlarmsHandler();
             alarmsHandler.HandleAlarm();
 
         }
 
+        //Below is code for a series of buttons to manipulate the buttons for the days to imitate them being turned on and off
+        //Xamarin forms does not have a native toggle button
         private void btnMonday_Clicked(object sender, EventArgs e)
         {
             if (getMonday)
@@ -170,7 +170,7 @@ namespace MDL.Views
 
         private void selectedTime_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-
+            //Set the getTime variable to the timepickers current time
             if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
             {
                 getTime = selectedTime.Time;
@@ -179,6 +179,7 @@ namespace MDL.Views
 
         private void switchReminder_Toggled(object sender, ToggledEventArgs e)
         {
+            //If there is no reminder required the controls for the reminder are hidden, if the switch turns on they are shown
             getReminder = e.Value;
 
             if (getReminder == false)
@@ -203,6 +204,7 @@ namespace MDL.Views
             }
         }
 
+        //Long function to change the color of the buttons to simulate being enabled and disabled
         private void HandleButtons()
         {
             if (!getMonday)
@@ -261,6 +263,11 @@ namespace MDL.Views
             {
                 btnSunday.BackgroundColor = Color.Gray;
             }
+        }
+
+        async private void btnCancel_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
 }

@@ -5,3 +5,5 @@ same each day and items can be set to a complete status as they go throughout th
 the items are reset to not complete. Additional functionality such as alarms/reminders are intended to be added.
 
 A recent android update changed the way notifications are handled and as such caused all of my notifications to crash the app. As such, until it is fixed they are disabled.
+
+Much of this code was written before learning of best practices and proper utilization of MVC. Writing this project with Xamarin was a learning project as I learned as I went along. 
